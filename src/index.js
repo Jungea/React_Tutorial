@@ -2,24 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 
-class Square extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: null,
-    };
-  }
-
-  render() {
-    return (
-      <button
-        className="square"
-        onClick={() => this.props.onClick()}  //prop on[Event]
-      >
-        {this.props.value}
-      </button>
-    );
-  }
+function Square(props) {
+  return (
+    <button className="square" onClick={props.onClick}>
+      {props.value}
+    </button>
+  );
 }
 
 class Board extends React.Component {
@@ -32,14 +20,17 @@ class Board extends React.Component {
   }
 
   renderSquare(i) {
-    return <Square value={this.state.squares[i]}
-    onClick={() => this.handleClick(i)} />;  //처리하는 함수 handle[Event]
+    return (
+      <Square value={this.state.squares[i]}
+        onClick={() => this.handleClick(i)} //처리하는 함수 handle[Event]
+      />
+    );
   }
 
   handleClick(i) {
     const squares = this.state.squares.slice();
     squares[i] = 'X';
-    this.setState({squares: squares});
+    this.setState({ squares: squares });  //객체의 변화를 감지하여 다시 렌더링
   }
 
   render() {
