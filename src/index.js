@@ -15,6 +15,7 @@ class Board extends React.Component {
     super(props);
     this.state = {
       squares: Array(9).fill(null),
+      xIsNow: true,
     };
 
   }
@@ -29,12 +30,15 @@ class Board extends React.Component {
 
   handleClick(i) {
     const squares = this.state.squares.slice();
-    squares[i] = 'X';
-    this.setState({ squares: squares });  //객체의 변화를 감지하여 다시 렌더링
+    squares[i] = this.state.xIsNow ? 'X' : 'O';
+    this.setState({  //객체의 변화를 감지하여 다시 렌더링
+      squares: squares,
+      xIsNow: !this.state.xIsNow,
+    });
   }
 
   render() {
-    const status = "Next player: X";
+    const status = "Next player: " + (this.state.xIsNow ? 'X' : 'O');
 
     return (
       <div>
